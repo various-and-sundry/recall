@@ -1,0 +1,50 @@
+The capital of Connecticut?`Hartford, Connecticut
+The capital of Maine?`Augusta, Maine
+The capital of New Hampshire?`Concord, New Hampshire
+The capital of Vermont?`Montpelier, Vermont
+The capital of Massachusetts?`Boston, Massachusetts
+The capital of New York?`Albany, New York
+The capital of New Jersey?`Trenton, New Jersey
+The capital of Delaware?`Dover, Delaware
+The capital of Pennsylvania?`Harrisburg, Pennsylvania
+The capital of Rhode Island?`Providence, Rhode Island
+The capital of Maryland?`Annapolis, Maryland
+The capital of Virginia?`Richmond, Virginia
+The capital of Ohio?`Columbus, Ohio
+The capital of Kentucky?`Frankfort, Kentucky
+The capital of West Virginia?`Charleston, West Virginia
+The capital of North Carolina?`Raleigh, North Carolina
+The capital of Indiana?`Indianapolis, Indiana
+The capital of Illinois?`Springfield, Illinois
+The capital of Tennessee?`Nashville, Tennessee
+The capital of Georgia?`Atlanta, Georgia
+The capital of Michigan?`Lansing, Michigan
+The capital of Louisiana?`Baton Rouge, Louisiana
+The capital of Mississippi?`Jackson, Mississippi
+The capital of Florida?`Tallahassee, Florida
+The capital of Arkansas?`Little Rock, Arkansas
+The capital of Missouri?`Jefferson City, Missouri
+The capital of Iowa?`Des Moines, Iowa
+The capital of Minnesota?`Saint Paul, Minnesota
+The capital of Texas?`Austin, Texas
+The capital of North Dakota?`Bismarck, North Dakota
+The capital of South Carolina?`Columbia, South Carolina
+The capital of South Dakota?`Pierre, South Dakota
+The capital of Nebraska?`Lincoln, Nebraska
+The capital of Wisconsin?`Madison, Wisconsin
+The capital of Kansas?`Topeka, Kansas
+The capital of Wyoming?`Cheyenne, Wyoming
+The capital of Oklahoma?`Oklahoma City, Oklahoma
+The capital of Alabama?`Montgomery, Alabama
+The capital of Colorado?`Denver, Colorado
+The capital of New Mexico?`Santa Fe, New Mexico
+The capital of Utah?`Salt Lake City, Utah
+The capital of Montana?`Helena, Montana
+The capital of Arizona?`Phoenix, Arizona
+The capital of Nevada?`Carson City, Nevada
+The capital of Idaho?`Boise, Idaho
+The capital of Oregon?`Salem, Oregon
+The capital of Alaska?`Juneau, Alaska
+The capital of Hawaii?`Honolulu, Hawaii
+The capital of Washington?`Olympia, Washington
+The capital of California?`Sacramento, California
