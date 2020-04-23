@@ -3,7 +3,7 @@
 
 #Remove ~/.recall from PATH
 #sed -i -r 's#export PATH=#PATH:~/.recall##g' '/home/pi/.bashrc'
-sed -i -r '/^export /s/.*recall$//g' /home/pi/.bashrc
+sed -i -r '/^export /s/.*recall$//g' $HOME/.bashrc
 
 #Remove Recalists from ~/Docments
 rm -r $HOME/Documents/RecallLists
