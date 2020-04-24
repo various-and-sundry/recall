@@ -5,7 +5,7 @@ clean:
 	rm recall
 
 install:
-	./install.sh
+	bash install.sh
 
 uninstall:
-	./uninstall.sh
+	bash uninstall.sh
