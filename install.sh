@@ -20,7 +20,7 @@ Comment=A virtual flashcard tool.
 Exec=$HOME/.recall/recall
 Terminal=true
 Icon=$HOME/.recall/recall.png
-Categories=Education;
+Categories=Education
 EOF
 chmod +x $HOME/Desktop/Recall.desktop
 
