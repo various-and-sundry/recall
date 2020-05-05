@@ -3,8 +3,11 @@ recall: recall.c
 
 installer: recall install.sh uninstall.sh RecallLists graphics/recall.png
 	mkdir recall_installer
-	cp -r recall install.sh uninstall.sh graphics/recall.png RecallLists recall_installer 	
+	cp -r recall install.sh uninstall.sh graphics/recall.png RecallLists manual/manual.pdf recall_installer 	
 	zip -r recall_installer.zip recall_installer
+
+updatelists: RecallLists
+	cp -r RecallLists  ~/Documents
 
 clean:
 	rm recall
