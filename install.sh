@@ -7,7 +7,7 @@ chmod +x $HOME/.recall/recall
 cp recall.png $HOME/.recall/recall.png
 
 #Create RecallList folder in Documents
-cp -r RecallLists  $HOME/Documents
+mkdir ~/Documents/RecallLists
 
 #Create desktop launcher on desktop
 touch $HOME/Desktop/Recall.desktop
