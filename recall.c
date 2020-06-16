@@ -9,7 +9,9 @@ char answer[200];
 char question[200];
 FILE *fp;
 char file_path[800];
-char home_path[400];
+char list_dir_path[400];
+char home_dir_path[400];
+char recallrc_path[400];
 
 
 int print_title(void) {
@@ -22,7 +24,7 @@ int print_title(void) {
 	printw("  |======================================|\n\n\n");
 }
 
-int get_line(int question_number){	//Read random line from file
+int get_line(int question_number){			//Read random line from file
 
 	int i = 0;
 
@@ -52,7 +54,7 @@ int get_random_line_number() {				//Get random line number within the bounds of 
 }
 
 
-int get_question(){			//Get question and answer and store them in global variables
+int get_question(){					//Get question and answer and store them in global variables
 
 	char delim[] = "`";
 	short answer_length = 0;
@@ -60,13 +62,13 @@ int get_question(){			//Get question and answer and store them in global variabl
 	short question_length = 0;
 
 	while(true){
-		get_line(get_random_line_number());		//Store random line from file in "line"
-		if(strstr(line, "`") != NULL){			//Make sure line if properly formatted. If not, get a different line.
+		get_line(get_random_line_number());	//Store random line from file in "line"
+		if(strstr(line, "`") != NULL){		//Make sure line if properly formatted. If not, get a different line.
 			break;
 		}
 	}
 
-	char *start_of_answer = strchr(line, '`');	//Fine where '`' is that makes the beginning of the answer
+	char *start_of_answer = strchr(line, '`');	//Fine where '`' is that marks the beginning of the answer
 	strcpy(answer, &start_of_answer[1]);		//Copy answer section on line to answer
 
 	answer_length = strlen(answer);			//Find length of answer
@@ -97,9 +99,35 @@ int show_answer(void){
 }
 
 
-int get_home_path(void){
-	strcpy(home_path, getenv("HOME"));		//Copy path to home directory to home_path
-	strcat(home_path, "/Documents/RecallLists/");	//Cat path to RecallList folder from home directory
+int get_list_dir_path(void){
+	strcpy(home_dir_path, getenv("HOME"));				//Copy path to home directory to home_dir_path
+
+	strcpy(recallrc_path, home_dir_path);
+	strcat(recallrc_path, "/.recall/recallrc");			//Store location of recallrc in recallrc_path
+
+	fp = fopen(recallrc_path, "r");					//Open recallrc in read mode
+		fgets(list_dir_path, 400, fp);				//Load first line of file into list_dir_path
+
+	list_dir_path[strcspn(list_dir_path, "\r\n")] = 0;		//Remove end of line characters
+
+	if(strstr(list_dir_path, "~") != NULL){				//Check whether path is relative
+		char *start_of_path = strchr(list_dir_path, '/');
+		strcpy(list_dir_path, &start_of_path[0]);		//Remove everything up to the ~
+
+		char rel_path[400];
+		strcpy(rel_path, list_dir_path);
+		strcpy(list_dir_path, home_dir_path);
+		strcat(list_dir_path, rel_path);			//Cat relative path to the end of home path
+	}
+	else if(strstr(list_dir_path, "/") != NULL){			//Check whether path is absolute
+		char *start_of_path = strchr(list_dir_path, '/');
+		strcpy(list_dir_path, &start_of_path[0]);		//Remove everything up to the /
+	}
+	else {								//If path is neither identified as relative or absolute, consider it invalid
+		//Invalid Path!!!
+	}
+
+	fclose(fp);							//Close file
 	return 0;
 }
 
@@ -111,7 +139,7 @@ int open_file(void){
 	printw("Type the name of the file you would like to open.\n\n:");
 	scanw("%s", file_name);				//Store file name
 	file_path[0] = '\0';				//Clear file_path for new file path
-	strcat(file_path, home_path);
+	strcat(file_path, list_dir_path);
 	strcat(file_path, file_name);
 	strcat(file_path, ".txt");
 
@@ -122,7 +150,7 @@ int open_file(void){
 
 		scanw("%s", file_name);			//Store file name
 		file_path[0] = '\0';			//Clear file_path for new file path
-		strcat(file_path, home_path);		//Add path to RecallLists folder to file_path
+		strcat(file_path, list_dir_path);		//Add path to RecallLists folder to file_path
 		strcat(file_path, file_name);		//Add file name to file path
 		strcat(file_path, ".txt");
 	}
@@ -134,14 +162,19 @@ int help_message(void){
 	print_title();
 	printw("Press any key to exit this help page.\n\n");
 	printw("* * * WHAT IS RECALL * * *\n");
-	printw("Recall is a free program designed to help with memorisation though \"virtual flashcards.\" It runs entirely within the Linux shell.\n\n");
+	printw("Recall is a free program designed to aid memorization. It stimulates the user's memory through active recall by randomly cycling through sets of questions and answers.\n\n");
+
 	printw("* * * HOW TO OPEN A FILE * * *\n");
-	printw("The flashcards are stored in text files. When the programs is first opened, it will promote you to enter the name of a file. If you type the name of a file in Document/RecallLists (minus the .txt extension), the file will open.\n When a file is already open, shift-f will allow you to open a different file.\n\n");
-	printw("* * * HOW TO USE A FLASHCARD FILE * * *\n");
-	printw("Once a flashcard file is open, a random question will be displayed. When you press any key, the answer will be displayed. Then, you can press a any key to display the next question.\n\n");
+	printw("The questions and answers are stored in .txt files in the ~/Documents/RecallLists directory. When the program is launched, it prompts the user to enter the name of a file. The file name should be entered without including the .txt file extension. The file will then load into Recall. If a file is already open, shift-f will allow for a different file to be selected.\n\n");
+
+	printw("* * * HOW TO CYCLE QUESTIONS * * *\n");
+	printw("Once a flashcard file is open, one of the questions will be displayed at random. Then, when any key is pressed, the answer will be displayed. Then, any key can be pressed to display the next question.\n\n");
+
 	printw("* * * CREATING NEW FLASHCARD FILES * * *\n");
-	printw("Create a new .txt file in the Documents/RecallLists directory. The name of this file (minus the .txt extension) is the name the file can be accessed with from withing Recall. You can add questions within this file. Each question/answer pair should be put on its own line, and no lines should be blank. The question and answer should be separated by a \'`\' An example is shown below.\n");
-	printw("This is a question!`Here is an answer");
+	printw("Create a new .txt file in the ~/Documents/RecallLists directory. Questions can be added to the file with any text editor. Each question/answer pair should be on its own line. The question and answer should be separated by a \'`\' An example is shown below.\n\n");
+	printw("What is the name of our nearest star?`The Sun\n");
+	printw("What shape has eight sides?`An Octagon\n");
+	printw("What colors make green?`Blue and yellow make green.\n");
 	getch();
 }
 
@@ -149,7 +182,7 @@ int help_message(void){
 int main(void){
 	char c;						//Variable that will be used to read keystrokes
 
-	get_home_path();				//Store environment variable $HOME in home_path
+	get_list_dir_path();				//Store environment variable $HOME in list_dir_path
 
 	initscr();
 	open_file();					//Get a file name from the user and store it

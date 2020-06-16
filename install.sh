@@ -6,8 +6,30 @@ cp recall $HOME/.recall/recall
 chmod +x $HOME/.recall/recall
 cp recall.png $HOME/.recall/recall.png
 
-#Create RecallList folder in Documents
-mkdir ~/Documents/RecallLists
+#Decide where to put the RecallList directory
+if [ -d ~/Documents ]
+then
+	touch ~/.recall/recallrc
+	cat > ~/.recall/recallrc << EOF
+~/Documents/RecallLists/
+EOF
+	mkdir ~/Documents/RecallLists 
+	if [ -d ./RecallLists ]
+	then
+		cp -r ./RecallLists ~/Documents
+	fi
+else
+	touch ~/.recall/recallrc
+	cat > ~/.recall/recallrc << EOF
+~/.recall/RecallLists/
+EOF
+	mkdir ~/.recall/RecallLists
+	if [ -d ./RecallLists ]
+	then
+		cp -r ./RecallLists ~/.recall
+	fi
+
+fi
 
 #Create desktop launcher on desktop
 touch $HOME/Desktop/Recall.desktop
