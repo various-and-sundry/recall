@@ -105,6 +105,13 @@ int get_list_dir_path(void){
 	strcpy(recallrc_path, home_dir_path);
 	strcat(recallrc_path, "/.recall/recallrc");			//Store location of recallrc in recallrc_path
 
+	if(access(recallrc_path, F_OK | W_OK) == -1){
+		printw("Error\n\n");
+		printw("Recall cannot find your recallrc file. It was expected in the following location:\n%s\nWithout it, Recall can't find the directory in which you store your Recall list files.\n\n\nPress any key to exit.", recallrc_path);
+		getch();
+		return(-1);
+	}
+
 	fp = fopen(recallrc_path, "r");					//Open recallrc in read mode
 		fgets(list_dir_path, 400, fp);				//Load first line of file into list_dir_path
 
@@ -128,6 +135,13 @@ int get_list_dir_path(void){
 	}
 
 	fclose(fp);							//Close file
+	
+	if(access(list_dir_path, F_OK | W_OK) == -1){
+		printw("Error\n\n");
+		printw("Your recallrc file (%s) says that the Recall list files are stored in %s, but that directory does not seem to exist.\n\n\nPress any key to exit.", recallrc_path, list_dir_path);
+		getch();
+		return(-1);
+	}
 	return 0;
 }
 
@@ -180,11 +194,13 @@ int help_message(void){
 
 
 int main(void){
-	char c;						//Variable that will be used to read keystrokes
-
-	get_list_dir_path();				//Store environment variable $HOME in list_dir_path
-
 	initscr();
+	char c;						//Variable that will be used to read keystrokes
+	
+	if(get_list_dir_path() == -1){			//Store environment variable $HOME in list_dir_path.
+		endwin();
+		return(-1);				//If recallrc or the RecallLists directory do not exist, exit the program.
+	}
 	open_file();					//Get a file name from the user and store it
 
 	while(true){
