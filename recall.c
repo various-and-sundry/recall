@@ -56,7 +56,6 @@ int get_random_line_number() {				//Get random line number within the bounds of 
 
 int get_question(){					//Get question and answer and store them in global variables
 
-	char delim[] = "`";
 	short answer_length = 0;
 	short line_length = 0;
 	short question_length = 0;
@@ -113,7 +112,20 @@ int get_list_dir_path(void){
 	}
 
 	fp = fopen(recallrc_path, "r");					//Open recallrc in read mode
-		fgets(list_dir_path, 400, fp);				//Load first line of file into list_dir_path
+
+	while(true){							//Cycle through the lines of recallrc to find a line containing "PATH"
+		fgets(list_dir_path, 400, fp);
+		if(strstr(list_dir_path, "PATH") != NULL){
+			break;
+		}
+		if(feof(fp)){
+			printw("Error\n\n");
+			printw("It appears that there is no properly formatted path in your recallrc file (%s). Please modify your recallrc (%s). There needs to be a line that contains the string \"PATH\" and then the path to your Recall list directory. Below is an example. Press any key you exit.\n\n", recallrc_path, recallrc_path);
+			printw("PATH ~/Documents/RecallLists");
+			getch();
+			return(-1);
+		}
+	}
 
 	list_dir_path[strcspn(list_dir_path, "\r\n")] = 0;		//Remove end of line characters
 
@@ -131,14 +143,18 @@ int get_list_dir_path(void){
 		strcpy(list_dir_path, &start_of_path[0]);		//Remove everything up to the /
 	}
 	else {								//If path is neither identified as relative or absolute, consider it invalid
-		//Invalid Path!!!
+		printw("Error\n\n");
+		printw("Your recallrc file (%s) does not appear to contain a valid path to your Recall list directory. A valid path must either begin with a \"/\" or a \"~\". Please review your recallrc file (%s) to make sure that a valid path is given on the PATH line. Below is a valid example of a path\n\n", recallrc_path, recallrc_path);
+		printw("PATH ~/Documents/RecallLists");
+		getch();
+		return(-1);
 	}
 
 	fclose(fp);							//Close file
 	
 	if(access(list_dir_path, F_OK | W_OK) == -1){
 		printw("Error\n\n");
-		printw("Your recallrc file (%s) says that the Recall list files are stored in %s, but that directory does not seem to exist.\n\n\nPress any key to exit.", recallrc_path, list_dir_path);
+		printw("Your recallrc file (%s) indicates that your Recall list files are stored in \"%s\", but that directory does not seem to exist.\n\n\nPress any key to exit.", recallrc_path, list_dir_path);
 		getch();
 		return(-1);
 	}

@@ -11,7 +11,8 @@ if [ -d ~/Documents ]
 then
 	touch ~/.recall/recallrc
 	cat > ~/.recall/recallrc << EOF
-~/Documents/RecallLists/
+#The next line tells Recall where the Recall lists are stored.
+PATH ~/Documents/RecallLists/
 EOF
 	mkdir ~/Documents/RecallLists 
 	if [ -d ./RecallLists ]
@@ -21,7 +22,8 @@ EOF
 else
 	touch ~/.recall/recallrc
 	cat > ~/.recall/recallrc << EOF
-~/.recall/RecallLists/
+#The next line tells Recall where the Recall lists are stored.
+PATH~/.recall/RecallLists/
 EOF
 	mkdir ~/.recall/RecallLists
 	if [ -d ./RecallLists ]
