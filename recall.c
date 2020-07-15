@@ -189,22 +189,25 @@ int open_file(void){
 
 int help_message(void){
 	erase();
-	print_title();
-	printw("Press any key to exit this help page.\n\n");
+
+	printw("Press any key to exit this help page.\n\n\n");
 	printw("* * * WHAT IS RECALL * * *\n");
-	printw("Recall is a free program designed to aid memorization. It stimulates the user's memory through active recall by randomly cycling through sets of questions and answers.\n\n");
+	printw("Recall is a free program designed to aid in memorization. It stimulates a user's memory through active recall by randomly cycling through sets of questions and answers.\n\n");
 
 	printw("* * * HOW TO OPEN A FILE * * *\n");
-	printw("The questions and answers are stored in .txt files in the ~/Documents/RecallLists directory. When the program is launched, it prompts the user to enter the name of a file. The file name should be entered without including the .txt file extension. The file will then load into Recall. If a file is already open, shift-f will allow for a different file to be selected.\n\n");
+	printw("The questions and answers are stored in .txt files in a specific directory. This directory's location is stored in the ~/.recall/recallrc file. When Recall is launched, it prompts the user to enter the name of a file. The file name should be entered without including the .txt file extension. The file will then load into Recall. If a file is already open, shift-f will allow for a different file to be selected.\n\n");
 
 	printw("* * * HOW TO CYCLE QUESTIONS * * *\n");
-	printw("Once a flashcard file is open, one of the questions will be displayed at random. Then, when any key is pressed, the answer will be displayed. Then, any key can be pressed to display the next question.\n\n");
+	printw("Once a flashcard file is open, one of the questions will be displayed at random. Then, any key can be pressed to display that question's answer. Then, any key can be pressed to display the next question.\n\n");
 
 	printw("* * * CREATING NEW FLASHCARD FILES * * *\n");
-	printw("Create a new .txt file in the ~/Documents/RecallLists directory. Questions can be added to the file with any text editor. Each question/answer pair should be on its own line. The question and answer should be separated by a \'`\' An example is shown below.\n\n");
+	printw("Questions can be added to a .txt file with any text editor. Each question/answer pair should be on its own line. The question and answer should be separated by a \'`\'. An example is shown below.\n\n");
 	printw("What is the name of our nearest star?`The Sun\n");
 	printw("What shape has eight sides?`An Octagon\n");
-	printw("What colors make green?`Blue and yellow make green.\n");
+	printw("What colors make green?`Blue and yellow make green.\n\n");
+
+	printw("* * * More Information * * *\n");
+	printw("For more information, please see https://various-and-sundry.com/recall.html");
 	getch();
 }
 
