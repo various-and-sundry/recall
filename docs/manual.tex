@@ -318,9 +318,13 @@ If an individual would like to make a major addition to Recall, it is probably b
 \subsubsection{Compiling Recall}
 Recall is currently compiled from only one source file: \textit{recall.c}. The makefile will automatically compile Recall with the command \textit{make} or \textit{make recall}. If make is not installed, the command \textit{gcc recall.c -o recall -lncurses} can be used to compile Recall.
 
-Recall requires the \textit{ncurses} library. When using Debian or most Debian based systems, the developer's libraries for \textit{ncuses} can be install via the following command.
+Recall requires the \textit{ncurses} library. When using Debian or most other Debian based systems, the developer's libraries for \textit{ncurses} can be install via the following command.
 \begin{verbatim}
 sudo apt-get install libncurses5-dev libncursesw5-dev
+\end{verbatim}
+When using Fedora, Red Hat, CentOS, or one of their derivatives, the developer's library for \textit{ncurses} can be installed via the following command.
+\begin{verbatim}
+sudo yum install ncurses-devel
 \end{verbatim}
 
 \subsubsection{Creating an Installer Zip}
