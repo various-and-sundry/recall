@@ -15,7 +15,7 @@
 
 \subsection{Graphical Installation -- Simplest} \label{graphical_install}
 \subsubsection{Downloading Installer}
-Begin by downloading the recall\_installer.zip file. It can be found at \href{https://various-and-sundry.com/recall.html}{https://various-and-sundry.com/recall.html}.
+Begin by downloading the appropriate recall\_installer.zip file for your operating system. All variants can be found on the Recall Downloads page: \href{https://various-and-sundry.com/recall_downloads.html}{https://various-and-sundry.com/recall\_downloads.html}.
 
 \subsubsection{Unzipping Installer}
 Navigate to the recall\_installer.zip file (example shown in figure \ref{fig:graphical_zip_file}).
@@ -82,7 +82,19 @@ The install script may not work as expected on all desktop environments and/or G
 
 \subsection{Command-Line Installation -- Most Reliable} \label{command_line_install}
 \subsubsection{Downloading Installer} \label{running the install script in a terminal}
-Begin by downloading the \textit{recall\_installer.zip} from \href{https://various-and-sundry.com/downloads/recall/recall_installer.zip}{https://various-and-sundry.com/downloads/recall/recall\_installer.zip}. This can be accomplished via the command \textit{wget https://various-and-sundry.com/downloads/recall/recall\_installer.zip}. This command will download the \textit{recall\_installer.zip} into the current working directory (as shown in figure \ref{fig:wget_recall_installer.zip}).
+Begin by downloading the appropriate installer \textit{.zip} file for your operating system. The web addresses of the three available \textit{.zip} installers are shown below.
+
+\href{https://various-and-sundry.com/downloads/recall/recall_installer_i686_ncurses5.zip}{https://various-and-sundry.com/downloads/recall/recall\_installer\_i686\_ncurses5.zip}
+
+\href{https://various-and-sundry.com/downloads/recall/recall_installer_i686_ncurses6.zip}{https://various-and-sundry.com/downloads/recall/recall\_installer\_i686\_ncurses6.zip}
+
+\href{https://various-and-sundry.com/downloads/recall/recall_installer_x86-64_ncurses6.zip}{https://various-and-sundry.com/downloads/recall/recall\_installer\_x86-64\_ncurses6.zip}\\
+
+The files can be downloaded via the \textit{wget} command:
+
+\textit{wget https://various-and-sundry.com/downloads/recall/\textbf{name\_of\_file.zip}}
+
+This command will download the installer \textit{.zip} into the current working directory (as shown in figure \ref{fig:wget_recall_installer.zip}).
 
 \begin{figure}[H]
   \centering
@@ -172,7 +184,15 @@ The install script may not work as expected in all desktop environments or on al
 Recall can be installed manually, allowing for a customized installation. This will allow the directory in which the program is stored, the launcher(s) configuration, and the \textit{\$PATH} to be manually customized. If there is no specific reason to modify these options, Recall can much more easily be installed via its install script as shown in sections \ref{graphical_install} -- Graphical Installation or section \ref{command_line_install} -- Command-Line Installation.
 
 \subsubsection{Downloading Necessary Files}
-The necessary files for installing Recall can be downloaded from \href{https://various-and-sundry.com/recall.html}{https://various-and-sundry.com/recall.html} or directly at \href{https://various-and-sundry.com/downloads/recall/recall_installer.zip}{https://various-and-sundry.com/downloads/recall/recall\_installer.zip}. Download the installer zip and extract its contents.
+Begin by downloading the appropriate installer \textit{.zip} file for your operating system. The web addresses of the three available \textit{.zip} installers are shown below. They could also be download from the Recall Downloads page: \href{https://various-and-sundry.com/recall_downloads.html}{https://various-and-sundry.com/recall\_downloads.html}.
+
+\href{https://various-and-sundry.com/downloads/recall/recall_installer_i686_ncurses5.zip}{https://various-and-sundry.com/downloads/recall/recall\_installer\_i686\_ncurses5.zip}
+
+\href{https://various-and-sundry.com/downloads/recall/recall_installer_i686_ncurses6.zip}{https://various-and-sundry.com/downloads/recall/recall\_installer\_i686\_ncurses6.zip}
+
+\href{https://various-and-sundry.com/downloads/recall/recall_installer_x86-64_ncurses6.zip}{https://various-and-sundry.com/downloads/recall/recall\_installer\_x86-64\_ncurses6.zip}\\
+
+The files can be downloaded via the \textit{wget} command or by another means.
 
 \subsubsection{Storing Executable}
 Create a directory in which the program will be stored. By default, this would be \textit{\~{}/.recall}, but any location will work. Copy \textit{recall} and \textit{recall.png} into this directory. \textit{Recall} is the executable, and \textit{recall.png} is the icon.
