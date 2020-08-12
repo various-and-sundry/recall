@@ -173,14 +173,14 @@ int open_file(void){
 	strcat(file_path, file_name);
 	strcat(file_path, ".txt");
 
-	while(access(file_path, F_OK | W_OK) == -1){	//Keep showing an error message is the file does not exist
+	while(access(file_path, F_OK | W_OK) == -1){	//Keep showing an error message if the file does not exist
 		erase();
 		print_title();
 		printw("\"%s\" cannot be found. Please type a different file name.\n\n:", file_path);
 
 		scanw("%s", file_name);			//Store file name
 		file_path[0] = '\0';			//Clear file_path for new file path
-		strcat(file_path, list_dir_path);		//Add path to RecallLists folder to file_path
+		strcat(file_path, list_dir_path);	//Add path to RecallLists folder to file_path
 		strcat(file_path, file_name);		//Add file name to file path
 		strcat(file_path, ".txt");
 	}
