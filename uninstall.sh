@@ -4,9 +4,6 @@
 #Remove ~/.recall from PATH
 sed -i -r '/^export /s/.*recall$//g' $HOME/.bashrc
 
-#Remove Recalists from ~/Docments
-rm -r $HOME/Documents/RecallLists
-
 #Remove Program File
 rm -r $HOME/.recall
 
