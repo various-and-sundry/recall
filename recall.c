@@ -98,7 +98,7 @@ int show_answer(void){
 }
 
 
-int get_list_dir_path(void){
+int get_recallrc_path(void){
 	strcpy(home_dir_path, getenv("HOME"));				//Copy path to home directory to home_dir_path
 
 	strcpy(recallrc_path, home_dir_path);
@@ -110,7 +110,10 @@ int get_list_dir_path(void){
 		getch();
 		return(-1);
 	}
+}
 
+
+int get_list_dir_path(void){
 	fp = fopen(recallrc_path, "r");					//Open recallrc in read mode
 
 	while(true){							//Cycle through the lines of recallrc to find a line containing "PATH"
@@ -216,6 +219,10 @@ int main(void){
 	initscr();
 	char c;						//Variable that will be used to read keystrokes
 	
+	if(get_recallrc_path() == -1){			//Store environment variable $HOME in home_dir_path; Store recallrc file location in recallrc_path.
+		endwin();
+		return(-1);				//If recallrc or the RecallLists directory do not exist, exit the program.
+	}
 	if(get_list_dir_path() == -1){			//Store environment variable $HOME in list_dir_path.
 		endwin();
 		return(-1);				//If recallrc or the RecallLists directory do not exist, exit the program.
