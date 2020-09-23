@@ -4,9 +4,9 @@
 #include <unistd.h>
 #include <ncurses.h>
 
-char line[400];						//Declaring global variables
-char answer[200];
-char question[200];
+char line[4000];						//Declaring global variables
+char answer[3000];
+char question[3000];
 FILE *fp;
 char file_path[800];
 char list_dir_path[400];
