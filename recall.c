@@ -79,10 +79,13 @@ int get_question(){					//Get question and answer and store them in global varia
 	return 0;
 }
 
+int print_head(void){
+	printw("  j = next  ||  x = exit  ||  f = open file  ||  h = help\n\n");
+}
 
 int ask_question(void) {				//Print question and answer to screen
 	erase();					//Erase contents of screen
-	printw("  Press shift-X to exit --- Press shift-F to open a file --- Press shift-H for help\n\n");
+	print_head();
 	print_title();
 	printw("%s", question);				//Print line
 	return 0;
@@ -91,12 +94,11 @@ int ask_question(void) {				//Print question and answer to screen
 
 int show_answer(void){
 	erase();					//Erase contents of screen
-	printw("  Press shift-X to exit --- Press shift-F to open a file --- Press shift-H for help\n\n");
+	print_head();
 	print_title();
 	printw("%s\n\n%s\n", question, answer);		//Print line and answer
 	return 0;
 }
-
 
 int get_recallrc_path(void){
 	strcpy(home_dir_path, getenv("HOME"));				//Copy path to home directory to home_dir_path
@@ -231,31 +233,44 @@ int main(void){
 
 	while(true){
 		get_question();				//Read random line from file, extract question and answer, and store them in variables "question" and "answer".
-		ask_question();				//Show question.
-		c = getch();				//Wait for keystroke
 
-		if(c == 'X'){				//If keystroke was an 'X', close program.
-			endwin();
-			return 0;
-		}if(c == 'F'){				//If keystroke was an 'F', allow user to open new file.
-			open_file();
-			continue;
-		}if(c == 'H'){				//if keystroke was an 'H', show help screen.
-			help_message();
+		while(true){
+			ask_question();				//Show question.
+
+			c = getch();				//Wait for keystroke
+
+			if(c == 'j' || c == 'J' || c == ' '){	//If keystroke was a 'j', 'J', and ' ', exit loop to show answer
+				break;
+			}if(c == 'x' || c == 'X'){		//If keystroke was an 'x' or 'X', close program.
+				endwin();
+				return 0;
+			}if(c == 'f' || c == 'F'){		//If keystroke was an 'f' or 'F', allow user to open new file.
+				open_file();
+				continue;
+			}if(c == 'h' || c == 'H'){		//if keystroke was an 'h' or 'H', show help screen.
+				help_message();
+				continue;
+			}
 		}
 
-		show_answer();				//She answer along with question.
 
-		c = getch();
+		while(true){
+			show_answer();				//She answer along with question.
 
-		if(c == 'X'){				//If keystroke was an 'X', close program.
-			endwin();
-			return 0;
-		}if(c == 'F'){				//If keystroke was an 'F', allow user to open new file.
-			open_file();
-			continue;
-		}if(c == 'H'){				//if keystroke was an 'H', show help screen.
-			help_message();
+			c = getch();				//Wait for keystroke
+
+			if(c == 'j' || c == 'J' || c == ' '){	//If keystroke was a 'j', 'J', and ' ', exit loop to show next question
+				break;
+			}if(c == 'x' || c == 'X'){		//If keystroke was an 'x' or 'X', close program.
+				endwin();
+				return 0;
+			}if(c == 'f' || c == 'F'){		//If keystroke was an 'f' or 'F', allow user to open new file.
+				open_file();
+				continue;
+			}if(c == 'h' || c == 'H'){		//if keystroke was an 'h' or 'H', show help screen.
+				help_message();
+				continue;
+			}
 		}
 	}
 }
