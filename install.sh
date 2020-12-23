@@ -34,6 +34,8 @@ EOF
 fi
 
 #Create desktop launcher on desktop
+if [ -d ~/Desktop ]
+then
 touch $HOME/Desktop/Recall.desktop
 cat > $HOME/Desktop/Recall.desktop << EOF
 [Desktop Entry]
@@ -50,6 +52,7 @@ chmod +x $HOME/Desktop/Recall.desktop
 
 #Add copy of desktop launcher to applications menu
 sudo cp $HOME/Desktop/Recall.desktop /usr/share/applications/Recall.desktop
+fi
 
 #Add recall to $PATH
 echo 'export PATH=$PATH:~/.recall' >> $HOME/.bashrc
