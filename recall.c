@@ -200,10 +200,10 @@ int help_message(void){
 	printw("Recall is a free program designed to aid in memorization. It stimulates a user's memory through active recall by randomly cycling through sets of questions and answers.\n\n");
 
 	printw("* * * HOW TO OPEN A FILE * * *\n");
-	printw("The questions and answers are stored in .txt files in a specific directory. This directory's location is stored in the ~/.recall/recallrc file. When Recall is launched, it prompts the user to enter the name of a file. The file name should be entered without including the .txt file extension. The file will then load into Recall. If a file is already open, shift-f will allow for a different file to be selected.\n\n");
+	printw("The questions and answers are stored in .txt files in a specific directory. This directory's location is stored in the ~/.recall/recallrc file. When Recall is launched, it prompts the user to enter the name of a file. The file name should be entered without including the .txt file extension. The file will then load into Recall. If a file is already open, pressing 'f' will allow for a different file to be selected.\n\n");
 
 	printw("* * * HOW TO CYCLE QUESTIONS * * *\n");
-	printw("Once a flashcard file is open, one of the questions will be displayed at random. Then, any key can be pressed to display that question's answer. Then, any key can be pressed to display the next question.\n\n");
+	printw("Once a flashcard file is open, one of the questions will be displayed at random. Then, the space bar or 'j' key can be pressed to display the question's answer. Then, the space bar or 'j' key can be pressed to display the next question.\n\n");
 
 	printw("* * * CREATING NEW FLASHCARD FILES * * *\n");
 	printw("Questions can be added to a .txt file with any text editor. Each question/answer pair should be on its own line. The question and answer should be separated by a \'`\'. An example is shown below.\n\n");
