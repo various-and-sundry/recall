@@ -80,7 +80,9 @@ int get_question(){					//Get question and answer and store them in global varia
 }
 
 int print_head(void){
+	attron(A_REVERSE);
 	printw("  j = next  ||  x = exit  ||  f = open file  ||  h = help\n\n");
+	attroff(A_REVERSE);
 }
 
 int ask_question(void) {				//Print question and answer to screen
@@ -170,6 +172,7 @@ int get_list_dir_path(void){
 int open_file(void){
 	char file_name[400];
 	erase();					//Erase contents of screen
+	printw("\n\n");
 	print_title();
 	printw("Type the name of the file you would like to open.\n\n:");
 	scanw("%s", file_name);				//Store file name
@@ -180,6 +183,7 @@ int open_file(void){
 
 	while(access(file_path, F_OK | W_OK) == -1){	//Keep showing an error message if the file does not exist
 		erase();
+		printw("\n\n");
 		print_title();
 		printw("\"%s\" cannot be found. Please type a different file name.\n\n:", file_path);
 
@@ -195,23 +199,36 @@ int open_file(void){
 int help_message(void){
 	erase();
 
+	attron(A_REVERSE);
+	attron(A_BOLD);
 	printw("Press any key to exit this help page.\n\n\n");
+	attroff(A_BOLD);
+
 	printw("* * * WHAT IS RECALL * * *\n");
+	attroff(A_REVERSE);
 	printw("Recall is a free program designed to aid in memorization. It stimulates a user's memory through active recall by randomly cycling through sets of questions and answers.\n\n");
 
+	attron(A_REVERSE);
 	printw("* * * HOW TO OPEN A FILE * * *\n");
+	attroff(A_REVERSE);
 	printw("The questions and answers are stored in .txt files in a specific directory. This directory's location is stored in the ~/.recall/recallrc file. When Recall is launched, it prompts the user to enter the name of a file. The file name should be entered without including the .txt file extension. The file will then load into Recall. If a file is already open, pressing 'f' will allow for a different file to be selected.\n\n");
 
+	attron(A_REVERSE);
 	printw("* * * HOW TO CYCLE QUESTIONS * * *\n");
+	attroff(A_REVERSE);
 	printw("Once a flashcard file is open, one of the questions will be displayed at random. Then, the space bar or 'j' key can be pressed to display the question's answer. Then, the space bar or 'j' key can be pressed to display the next question.\n\n");
 
+	attron(A_REVERSE);
 	printw("* * * CREATING NEW FLASHCARD FILES * * *\n");
+	attroff(A_REVERSE);
 	printw("Questions can be added to a .txt file with any text editor. Each question/answer pair should be on its own line. The question and answer should be separated by a \'`\'. An example is shown below.\n\n");
 	printw("What is the name of our nearest star?`The Sun\n");
 	printw("What shape has eight sides?`An Octagon\n");
 	printw("What colors make green?`Blue and yellow make green.\n\n");
 
+	attron(A_REVERSE);
 	printw("* * * More Information * * *\n");
+	attroff(A_REVERSE);
 	printw("For more information, please see https://various-and-sundry.com/recall.html");
 	getch();
 }
@@ -220,7 +237,7 @@ int help_message(void){
 int main(void){
 	initscr();
 	char c;						//Variable that will be used to read keystrokes
-	
+
 	if(get_recallrc_path() == -1){			//Store environment variable $HOME in home_dir_path; Store recallrc file location in recallrc_path.
 		endwin();
 		return(-1);				//If recallrc or the RecallLists directory do not exist, exit the program.
