@@ -14,14 +14,41 @@ char home_dir_path[400];
 char recallrc_path[400];
 
 
+int jump(void) {
+	int screenHight;
+        int screenWidth;
+
+	getmaxyx(stdscr, screenHight, screenWidth);
+
+	for(int i=0; i < ((screenWidth-55)/4); ++i) {
+		printw(" ");
+	}
+}
+
+
+int print_head(void){
+	jump();
+	attron(A_REVERSE);
+	jump();
+
+	printw("j = next  ||  x = exit  ||  f = open file  ||  h = help");
+
+	jump();
+	attroff(A_REVERSE);
+	jump();
+
+	printw("\n\n");
+}
+
+
 int print_title(void) {
-	printw("  |======================================|\n");
-	printw("  |  |^^^\\    _      _       _    || ||  |\n");
-	printw("  |  |[_]/  /^^^\\  //^\\\\  //^\\\\   || ||  |\n");
-	printw("  |  || \\\\ ||===\' ||(    ||( )\\\\  || ||  |\n");
-	printw("  |  || ||  \\\\=//  \\\\=//  \\\\=//\\\\ || ||  |\n");
-	printw("  |             a memory training tool   |\n");
-	printw("  |======================================|\n\n\n");
+	jump();printw("|======================================|\n");
+	jump();printw("|  |^^^\\    _      _       _    || ||  |\n");
+	jump();printw("|  |[_]/  /^^^\\  //^\\\\  //^\\\\   || ||  |\n");
+	jump();printw("|  || \\\\ ||===\' ||(    ||( )\\\\  || ||  |\n");
+	jump();printw("|  || ||  \\\\=//  \\\\=//  \\\\=//\\\\ || ||  |\n");
+	jump();printw("|             a memory training tool   |\n");
+	jump();printw("|======================================|\n\n\n");
 }
 
 int get_line(int question_number){			//Read random line from file
@@ -79,16 +106,12 @@ int get_question(){					//Get question and answer and store them in global varia
 	return 0;
 }
 
-int print_head(void){
-	attron(A_REVERSE);
-	printw("  j = next  ||  x = exit  ||  f = open file  ||  h = help\n\n");
-	attroff(A_REVERSE);
-}
 
 int ask_question(void) {				//Print question and answer to screen
 	erase();					//Erase contents of screen
 	print_head();
 	print_title();
+	jump();
 	printw("%s", question);				//Print line
 	return 0;
 }
@@ -98,7 +121,10 @@ int show_answer(void){
 	erase();					//Erase contents of screen
 	print_head();
 	print_title();
-	printw("%s\n\n%s\n", question, answer);		//Print line and answer
+	jump();
+	printw("%s\n\n\n\n", question);			//Print line and answer
+	jump();
+	printw("%s\n", answer);				//Print line and answer
 	return 0;
 }
 
@@ -109,8 +135,22 @@ int get_recallrc_path(void){
 	strcat(recallrc_path, "/.recall/recallrc");			//Store location of recallrc in recallrc_path
 
 	if(access(recallrc_path, F_OK | W_OK) == -1){
+		attron(A_REVERSE);
 		printw("Error\n\n");
-		printw("Recall cannot find your recallrc file. It was expected in the following location:\n%s\nWithout it, Recall can't find the directory in which you store your Recall list files.\n\n\nPress any key to exit.", recallrc_path);
+		attroff(A_REVERSE);
+
+		printw("Recall cannot find your recallrc file. It was expected in the following location: ");
+
+		attron(A_BOLD);
+		printw("%s\n\n", recallrc_path);
+		attroff(A_BOLD);
+
+		printw("Without it, Recall can't find the directory in which you store your Recall list files.\n\n\n");
+
+		attron(A_REVERSE);
+		printw("Press any key to exit.");
+		attroff(A_REVERSE);
+		
 		getch();
 		return(-1);
 	}
@@ -126,9 +166,29 @@ int get_list_dir_path(void){
 			break;
 		}
 		if(feof(fp)){
+			attron(A_REVERSE);
 			printw("Error\n\n");
-			printw("It appears that there is no properly formatted path in your recallrc file (%s). Please modify your recallrc (%s). There needs to be a line that contains the string \"PATH\" and then the path to your Recall list directory. Below is an example. Press any key you exit.\n\n", recallrc_path, recallrc_path);
-			printw("PATH ~/Documents/RecallLists");
+			attroff(A_REVERSE);
+
+			printw("It appears that there is no properly formatted path in your recallrc file (");
+
+			attron(A_BOLD);
+			printw("%s", recallrc_path);
+			attroff(A_BOLD);
+
+			printw("). Please modify your recallrc (");
+
+			attron(A_BOLD);
+			printw("%s", recallrc_path);
+			attroff(A_BOLD);
+
+			printw("). There needs to be a line that contains the string \"PATH\" and then the path to your Recall list directory. An example is shown two lines below this one.\n\n");
+			printw("PATH ~/Documents/RecallLists\n\n\n\n");
+
+			attron(A_REVERSE);
+		       	printw("Press any key you exit.");
+			attroff(A_REVERSE);
+
 			getch();
 			return(-1);
 		}
@@ -150,9 +210,28 @@ int get_list_dir_path(void){
 		strcpy(list_dir_path, &start_of_path[0]);		//Remove everything up to the /
 	}
 	else {								//If path is neither identified as relative or absolute, consider it invalid
+		attron(A_REVERSE);
 		printw("Error\n\n");
-		printw("Your recallrc file (%s) does not appear to contain a valid path to your Recall list directory. A valid path must either begin with a \"/\" or a \"~\". Please review your recallrc file (%s) to make sure that a valid path is given on the PATH line. Below is a valid example of a path\n\n", recallrc_path, recallrc_path);
+		attroff(A_REVERSE);
+
+		printw("Your recallrc file (");
+
+		attron("A_BOLD");
+		printw("%s", recallrc_path);
+		attroff("A_BOLD");
+
+		printw(") does not appear to contain a valid path to your Recall list directory. A valid path must either begin with a \"/\" or a \"~\". Please review your recallrc file (");
+
+		attron("A_BOLD");
+		printw("%s", recallrc_path);
+		attroff("A_BOLD");
+
+		printw(") to make sure that a valid path is given on the PATH line. Below is a valid example of a path\n\n");
+
+		attron("A_REVERSE");
 		printw("PATH ~/Documents/RecallLists");
+		attroff("A_REVERSE");
+
 		getch();
 		return(-1);
 	}
@@ -160,8 +239,28 @@ int get_list_dir_path(void){
 	fclose(fp);							//Close file
 	
 	if(access(list_dir_path, F_OK | W_OK) == -1){
+		attron(A_REVERSE);
 		printw("Error\n\n");
-		printw("Your recallrc file (%s) indicates that your Recall list files are stored in \"%s\", but that directory does not seem to exist.\n\n\nPress any key to exit.", recallrc_path, list_dir_path);
+		attroff(A_REVERSE);
+
+		printw("Your recallrc file (");
+
+		attron(A_BOLD);
+		printw("%s", recallrc_path);
+		attroff(A_BOLD);
+
+		printw(") indicates that your Recall list files are stored in \"");
+
+		attron(A_BOLD);
+		printw("%s", list_dir_path);
+		attroff(A_BOLD);
+
+		printw("\", but that directory does not seem to exist.\n\n\n");
+
+		attron(A_REVERSE);
+		printw("Press any key to exit.");
+		attroff(A_REVERSE);
+
 		getch();
 		return(-1);
 	}
@@ -171,10 +270,14 @@ int get_list_dir_path(void){
 
 int open_file(void){
 	char file_name[400];
+	curs_set(1);					//Show cursor
 	erase();					//Erase contents of screen
 	printw("\n\n");
 	print_title();
-	printw("Type the name of the file you would like to open.\n\n:");
+	jump();
+	printw("Type the name of the file that you want to open.\n\n\n\n");
+	jump();
+	printw(":");
 	scanw("%s", file_name);				//Store file name
 	file_path[0] = '\0';				//Clear file_path for new file path
 	strcat(file_path, list_dir_path);
@@ -185,7 +288,10 @@ int open_file(void){
 		erase();
 		printw("\n\n");
 		print_title();
-		printw("\"%s\" cannot be found. Please type a different file name.\n\n:", file_path);
+		jump();
+		printw("\"%s\" cannot be found. Please type a different file name.\n\n", file_path);
+		jump();
+		printw(" ");
 
 		scanw("%s", file_name);			//Store file name
 		file_path[0] = '\0';			//Clear file_path for new file path
@@ -193,6 +299,7 @@ int open_file(void){
 		strcat(file_path, file_name);		//Add file name to file path
 		strcat(file_path, ".txt");
 	}
+	curs_set(0);					//Hide cursor
 }
 
 
@@ -236,6 +343,8 @@ int help_message(void){
 
 int main(void){
 	initscr();
+	curs_set(0);					//Hide cursor
+
 	char c;						//Variable that will be used to read keystrokes
 
 	if(get_recallrc_path() == -1){			//Store environment variable $HOME in home_dir_path; Store recallrc file location in recallrc_path.
